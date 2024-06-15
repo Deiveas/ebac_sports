@@ -1,14 +1,12 @@
-// App.tsx
-
 import { useEffect } from 'react'
+import { Provider, useDispatch } from 'react-redux'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
 import { GlobalStyle } from './styles'
 import { store } from './store'
-import { Provider } from 'react-redux'
 import { setProdutos } from './store/reducers/produto'
+import { useGetProdutosQuery } from './services/api'
 
-// Definição do tipo Produto
 export type Produto = {
   id: number
   nome: string
@@ -16,22 +14,32 @@ export type Produto = {
   imagem: string
 }
 
-function App() {
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/ebac_sports')
-      .then((res) => res.json())
-      .then((res: Produto[]) => {
-        store.dispatch(setProdutos(res))
-      })
-  }, [])
+const AppContent = () => {
+  const dispatch = useDispatch()
+  const { data: produtos, error, isLoading } = useGetProdutosQuery()
 
+  useEffect(() => {
+    if (produtos) {
+      dispatch(setProdutos(produtos))
+    }
+  }, [produtos, dispatch])
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error loading products</div>
+
+  return (
+    <div className="container">
+      <Header />
+      <Produtos />
+    </div>
+  )
+}
+
+function App() {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <div className="container">
-        <Header />
-        <Produtos />
-      </div>
+      <AppContent />
     </Provider>
   )
 }
