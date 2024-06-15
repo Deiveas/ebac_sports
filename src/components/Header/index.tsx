@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <S.Header>
-      <h1>EBAC Sports</h1>
+      <h1>DAS Sports</h1>
       <div>
         <span>{itens2.length} favoritos</span>
         <img src={cesta} alt="Cesta" onClick={limparCarrinho} />

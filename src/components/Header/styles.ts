@@ -17,7 +17,7 @@ export const Header = styled.header`
     font-size: 18px;
     flex: 1;
     font-style: italic;
-    color: ${cores.corFundo};
+    color: ${cores.corTexto};
   }
 
   div {

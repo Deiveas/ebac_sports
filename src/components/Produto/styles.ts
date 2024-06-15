@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 import { cores } from '../../styles'
 
 export const Produto = styled.div``
@@ -14,7 +13,15 @@ export const Capa = styled.div`
   img {
     display: block;
     width: 100%;
-    margin-bottom: 8px;
+    max-height: 300px; /* Altura máxima para evitar distorção */
+    object-fit: cover; /* Evita que a imagem seja cortada */
+    border-radius: 6px; /* Borda arredondada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease; /* Efeito de transição */
+  }
+
+  &:hover img {
+    transform: scale(1.05); /* Aumenta um pouco a escala ao passar o mouse */
   }
 `
 
@@ -77,6 +84,7 @@ export const BtnComprar = styled.button`
   cursor: pointer;
   border-radius: 4px;
   margin-bottom: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito de transição */
 
   &:hover {
     background-image: linear-gradient(
@@ -84,5 +92,7 @@ export const BtnComprar = styled.button`
       ${cores.corPrincipal},
       ${cores.corSecundaria}
     );
+    transform: translateY(-2px); /* Move o botão para cima */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais pronunciada */
   }
 `
